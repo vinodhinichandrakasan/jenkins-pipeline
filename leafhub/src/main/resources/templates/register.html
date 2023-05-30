@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Patient</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link rel="shortcut icon" th:href="@{/img/em_fav.png}" type="image/x-icon" />
+<script type="text/javascript" th:src="@{/js/jquery3.min.js}"></script>
+</head>
+<body>
+	<div id="wrapper" class="toggled">
+
+		<!-- Navbar Fragment -->
+		<div th:replace="layout :: navbar"></div>
+
+		<!-- Sidebar Fragment -->
+		<div th:replace="layout :: sidebar"></div>
+
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="page-header">
+							<h2>Register User</h2>
+							<hr />
+						</div>
+						<th:block th:if="${param.signUpResult != null}">
+							<div th:if="${param.signUpResult[0]} == '1'"
+								class="alert alert-success msg"
+								th:text="#{registration.success}"></div>
+							<div th:if="${param.signUpResult[0]} == '2'"
+								class="alert alert-danger msg"
+								th:text="#{registration.error.couldNotAdd}"></div>
+							<div th:if="${param.signUpResult[0]} == '3'"
+								class="alert alert-danger msg"
+								th:text="#{registration.error.passwordDoNotMatch}"></div>
+							<div th:if="${param.signUpResult[0]} == '4'"
+								class="alert alert-danger msg"
+								th:text="#{registration.error.usernameExists}"></div>
+							<div th:if="${param.signUpResult[0]} == '0'"
+								class="alert alert-danger msg"
+								th:text="#{registration.exception}"></div>
+						</th:block>
+						<form action="#" method="post" id="regForm" data-toggle="validator" 
+							th:action="@{/dashboard/registration}" th:object="${newUser}"
+							class="form-horizontal" name="registrationForm">
+							<div class="form-group">
+								<label class="control-label col-sm-2"> User Name : </label>
+								<div class="col-sm-4">
+									<input type="text" th:field="*{userName}" name="username"
+										placeholder="Enter User Name" class="form-control"/>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-sm-2"> User Role : </label>
+								<div class="col-sm-4">
+									<select name="filterByList" id="roleDropdown"
+										th:field="*{role}" class="form-control">
+										<option value="">Select a Filter</option>
+										<option th:value="mentor">Mentor</option>
+										<option th:value="learner">Learner</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-sm-2"> Name : </label>
+								<div class="col-sm-4">
+									<input type="text" th:field="*{name}" name="name"
+										placeholder="Enter Name" class="form-control" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-sm-2"> Email : </label>
+								<div class="col-sm-4">
+									<input type="email" th:field="*{email}" name="email"
+										placeholder="Enter Email" class="form-control" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-sm-2"> Password : </label>
+								<div class="col-sm-4">
+									<input type="password" th:field="*{password}" name="password"
+										id="password" placeholder="Enter Password" class="form-control" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-sm-2"> Confirm Password
+									: </label>
+								<div class="col-sm-4">
+									<input type="password" th:field="*{cnfPassword}" name="cnfPassword"
+										placeholder="Re-enter Password" class="form-control" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-sm-2"> Security Question
+									: </label>
+								<div class="col-sm-4">
+									<select name="questionList" th:field="*{secQuest}"
+										class="form-control">
+										<option value="">Select Option</option>
+										<option th:each="question : ${questions}"
+											th:value="${question.question}"
+											th:text="${question.id} + ' : ' + ${question.question}"></option>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label col-sm-2"> Answer : </label>
+								<div class="col-sm-4">
+									<input type="password" th:field="*{answer}" name="answer"
+										placeholder="Enter an answer" class="form-control" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-sm-offset-2 col-sm-3">
+									<input type="submit" value="Register" class="btn btn-success" />
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div th:if="${param.patientCreateResult != null}"
+				class="alert alert-success "
+				th:text="#{patient.add.success} + ' with Id - ' +  ${param.patientCreateResult[0]}"></div>
+
+		</div>
+		<!-- /#page-content-wrapper -->
+	</div>
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) 
+	<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>-->
+	<script type="text/javascript" th:src="@{/js/jquery.validate.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/validations.js}"></script>
+	<script type="text/javascript" th:src="@{/js/main.js}"></script>
+
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+	<script>
+		$("#menu-toggle").click(function(e) {
+			e.preventDefault();
+			$("#wrapper").toggleClass("toggled");
+		});
+	</script>
+</body>
+</html>

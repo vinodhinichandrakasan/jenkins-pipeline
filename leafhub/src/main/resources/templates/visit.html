@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Visit - EyeManage</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link rel="shortcut icon" th:href="@{/img/em_fav.png}"
+	type="image/x-icon" />
+<script type="text/javascript" th:src="@{/js/jquery3.min.js}"></script>
+</head>
+<body>
+
+	<div id="wrapper" class="toggled">
+		<!-- Navbar Fragment -->
+		<div th:replace="layout :: navbar"></div>
+
+		<!-- Contact Us Fragment -->
+		<div th:replace="layout :: contactUs"></div>
+
+		<!-- Sidebar Fragment -->
+		<div th:replace="layout :: sidebar"></div>
+
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">
+						<br /> <br />
+						<div class="container dynamicTile">
+							<div class="row ">
+								<div class="col-sm-2 col-xs-4">
+									<div id="tile1" class="tile">
+
+										<div class="carousel slide" data-ride="carousel">
+											<!-- Wrapper for slides -->
+											<div class="carousel-inner">
+												<!-- <div class="item active">
+													<a th:href="@{/dashboard/patientSearch?(mode=visit)}"><img
+														th:src="@{/img/plus.png}"
+														class="img-responsive tilecaption" /></a>
+												</div> -->
+												<div class="item active">
+													<h3>
+														<a th:href="@{/dashboard/patientSearch}"
+															class="tilecaption" th:id="addVisitLink">Add a Visit</a>
+													</h3>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-2 col-xs-4">
+									<div id="tile2" class="tile">
+
+										<div class="carousel slide" data-ride="carousel">
+											<!-- Wrapper for slides -->
+											<div class="carousel-inner">
+												<!-- <div class="item active">
+													<a th:href="@{/dashboard/visitSearch}"><img
+														th:src="@{/img/search.png}"
+														class="img-responsive tilecaption" /></a>
+												</div> -->
+												<div class="item active">
+													<h3>
+														<a th:href="@{/dashboard/visitSearch}" class="tilecaption">Search
+															Visits</a>
+													</h3>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<th:block th:if="${param.result != null}">
+								<div th:if=" ${param.result[0]} == '1'"
+									class="alert alert-success msg"
+									th:text="'Visit created successfully'"></div>
+							</th:block>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- <div th:if="${param.visitCreateResult != null}"
+			class="alert alert-success col-sm-6 "
+			th:text="#{visit.create.success} + ' with Id - ' +  ${param.visitCreateResult[0]}"></div> -->
+
+
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+	<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/jquery.validate.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/validations.js}"></script>
+
+	<script>
+		$("#menu-toggle").click(function(e) {
+			e.preventDefault();
+			$("#wrapper").toggleClass("toggled");
+		});
+		$(document).ready(function() {
+			$(".tile").height($("#tile1").width());
+			$(".carousel").height($("#tile1").width());
+			$(".item").height($("#tile1").width());
+
+			$(window).resize(function() {
+				if (this.resizeTO)
+					clearTimeout(this.resizeTO);
+				this.resizeTO = setTimeout(function() {
+					$(this).trigger('resizeEnd');
+				}, 10);
+			});
+
+			$(window).bind('resizeEnd', function() {
+				$(".tile").height($("#tile1").width());
+				$(".carousel").height($("#tile1").width());
+				$(".item").height($("#tile1").width());
+			});
+
+		});
+	</script>
+</body>
+</html>
