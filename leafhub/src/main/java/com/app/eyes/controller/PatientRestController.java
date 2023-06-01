@@ -61,10 +61,8 @@ public class PatientRestController {
 	@PostMapping("/learner/add")
 	public ResponseEntity<ApiResponse> createPatient(@RequestBody PatientDetailsPOJO patient) {
         ApiResponse response = new ApiResponse();
-        logger.info("Patient Add Post");
 
         try {
-            logger.info("Patient Add Try Block");
             logger.info("BirthDate : " + patient.getBirthDate());
             patient.setFirstVisitDate(new Date());
             String newId = patientService.add(patient);
