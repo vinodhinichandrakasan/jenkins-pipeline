@@ -70,8 +70,8 @@ public class PatientRestController {
             String newId = patientService.add(patient);
 
             if(null != newId){
-                logger.info("Patient Successfully Added");
-                response.setMessage("Patient Successfully Added");
+                logger.info("Learner Successfully Added");
+                response.setMessage("Learner Successfully Added");
                 response.setData(newId);
                 return ResponseEntity.status(HttpStatus.CREATED).body(response);
             }
