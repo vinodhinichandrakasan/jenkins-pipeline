@@ -37,7 +37,7 @@ public class LoginController {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);            }
             else {
             	 logger.info("Successfully Logged in");
-                 response.setMessage("Successfully Logged in");
+                 response.setMessage("Verified User Successfully");
                  return ResponseEntity.ok(response);
             }
         } catch (Exception e) {
