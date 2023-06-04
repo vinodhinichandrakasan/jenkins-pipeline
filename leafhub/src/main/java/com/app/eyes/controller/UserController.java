@@ -59,7 +59,7 @@ public class UserController {
 			logger.info(user.getUserName());
 			logger.info(user.getPassword());
 			int a	=	 userService.validateLogin(user.getUserName(),user.getPassword());
-			if (a == 0) {
+			if (a != 0) {
 				logger.info("Login Failed");
 				modelMap.addAttribute("loginError", true);
 				return "redirect:/?loginError";
